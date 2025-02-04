@@ -1,14 +1,33 @@
 package main
 
 import (
-    "fmt"
-    "net/http"
+	"context"
+	"fmt"
+	"log"
+	"net/http"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func main() {
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Hello, world!")
-    })
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	client, err := mongo.Connect(context.Background(), clientOptions)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-    http.ListenAndServe("localhost:8080", nil)
-}  
+	err = client.Ping(context.Background(), nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Connected to MongoDB!")
+	defer client.Disconnect(context.Background())
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello, world!")
+	})
+
+	http.ListenAndServe(":8080", nil)
+}
