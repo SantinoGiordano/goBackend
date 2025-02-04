@@ -10,6 +10,15 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+
+type User struct {
+    ID       string `json:"id"`
+    Name     string `json:"name"` 
+    Email    string `json:"email"` 
+    Password string `json:"password"`
+}
+
+
 func main() {
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 	client, err := mongo.Connect(context.Background(), clientOptions)
