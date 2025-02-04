@@ -19,6 +19,7 @@ type User struct {
 }
 
 
+
 func main() {
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 	client, err := mongo.Connect(context.Background(), clientOptions)
