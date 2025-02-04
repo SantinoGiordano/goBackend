@@ -5,16 +5,34 @@ import axios from 'axios';
 
 function UserList() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     axios.get('/users')
       .then(response => {
-        setUsers(response.data);
+        console.log("API Response:", response.data); // Log the response
+        if (Array.isArray(response.data)) {
+          setUsers(response.data);
+        } else {
+          setError("Unexpected data format: expected an array");
+        }
+        setLoading(false);
       })
       .catch(error => {
-        console.log(error);
+        console.log("Error fetching users:", error);
+        setError("Failed to fetch users");
+        setLoading(false);
       });
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
