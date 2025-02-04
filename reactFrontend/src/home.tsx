@@ -1,3 +1,12 @@
-export function Home(){
-    return <div>Hello World</div>
+import UserList from "./componets/userList";
+
+export default function Home() {
+  return (
+    <>
+      <div>
+        Hello
+        <UserList />
+      </div>
+    </>
+  );
 }
