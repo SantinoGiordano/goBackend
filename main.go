@@ -17,7 +17,25 @@ type User struct {
     Email    string `json:"email"` 
     Password string `json:"password"`
 }
-
+func getUsers(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Get all users")
+	}
+	
+	func getUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Get a user")
+	}
+	
+	func createUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Create a user")
+	}
+	
+	func updateUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Update a user")
+	}
+	
+	func deleteUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Delete a user")
+	}
 
 
 func main() {
